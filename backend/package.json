@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "connect to server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "alexandergoldberg (alexandergoldberg.net)",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "pg": "^7.8.0",
+    "pg-promise": "^8.5.5"
+  }
+  "proxy": "http://::1:3001"
+}

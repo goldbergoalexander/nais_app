@@ -1,0 +1,31 @@
+{
+  "name": "nais_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd backend && node server.js\" \"cd client && npm start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
+    "bluebird": "^3.5.3",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "install": "^0.12.2",
+    "mongoose": "^5.4.7",
+    "morgan": "^1.9.1",
+    "prop-types": "^15.7.1",
+    "react": "^16.8.1",
+    "react-confirm-alert": "^2.1.0",
+    "react-dom": "^16.8.1",
+    "string_decoder": "^1.2.0",
+    "uninstall": "0.0.0",
+    "webpack": "^4.29.0"
+  }
+}
