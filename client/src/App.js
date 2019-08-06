@@ -115,7 +115,7 @@ getInfoedr = () => {
   
   }
   //###############################################################   UPDATE DATA ##################################################################################
-    updateDB(idToUpdate,updateNameToApply,updateToApply,updateMatherial,updateCode,updateDate,updatePrice,updateSerial,updatePlace,e){
+    updateDB(idToUpdate,updateNameToApply,updateToApply,updateMatherial,updateCode,updateDate,updatePrice,updateSerial,updatePlace,updateNotes,e){
 		 e.preventDefault();
 		
 		       let objIdToUpdate = null;
@@ -132,8 +132,8 @@ getInfoedr = () => {
                 //let objIdToUpdate2 = objIdToUpdate1.substr(6,11);
                 axios.post("/api/updatevalue",
 	                   {
-						 _id : objID,
-                         id: objIdToUpdate1,
+						 id : objID,
+                         id_1: objIdToUpdate1,
                          update: { message: updateToApply1 },
 	                     name: {message :updateNameToApply1},
 						 matherial: {message :updateMatherial},
@@ -141,7 +141,8 @@ getInfoedr = () => {
 						 date: {message :updateDate},
 						 price: {message :updatePrice},
 						 serial: {message :updateSerial},
-						 place: {message :updatePlace}
+						 place: {message :updatePlace},
+						 notes: {message :updateNotes}
                        })
 					   .then(()=>{
 					
@@ -149,7 +150,7 @@ getInfoedr = () => {
                                 params: {
 								typeinventar : '0',
                                 number: 1,
-		                        searchvalue: objID }} 
+		                        searchvalue: objIdToUpdate1 }} 
 	                                    )
 									.then(data=>alert(
 									 'Запис успішно оновлено, Деталі : ' + '\n' +
@@ -157,7 +158,8 @@ getInfoedr = () => {
 									'ФІП :' +  data.data.data[0].p07 + '\n' +
 									'Найменування :' +  data.data.data[0].p02 + '\n' +
 									'Код :' +  data.data.data[0].p02a + '\n' +
-									'Посада :' +  data.data.data[0].p08 + '\n'
+									'Посада :' +  data.data.data[0].p08 + '\n' +
+									'Нотатки :' +  data.data.data[0].p09 + '\n'
 																		
 									))
 									 								
@@ -319,6 +321,7 @@ getInfoedr = () => {
 		<option value = '062' >062 - Комутатор</option>
 		<option value = '063' >063 - Рроутер</option>
 		<option value = '064' >064 - Модем</option>
+		<option value = '065' >065 - Картридж</option>
 		
 		</select>
 		&nbsp;
@@ -381,7 +384,7 @@ getInfoedr = () => {
           {results.length <= 0
             ? <div className = "ask" id = 'ask'>"Введіть будь-ласка вірне значення : '190...', Фамілію"</div> :
 		                     results.map((dat, i) => (
-			    <fieldset className = "Fieldset"><li  style = {{textAlign:"justify"}} key = {dat._id} > &nbsp;
+			    <fieldset className = "Fieldset"><li  style = {{textAlign:"justify"}} key = {dat.id} > &nbsp;
                   <span key ={i} style={{ color: "gray" }}> Інвентарний №: </span><b>{dat.p01}</b> <br />
 				  <span key ={i} style={{ color: "gray" }}> назва : </span><b>{dat.p02}</b> <br />
 				  <span key ={i} style={{ color: "gray" }}> Код : </span><b>{dat.p02a}</b> <br />
@@ -391,13 +394,14 @@ getInfoedr = () => {
 				  <span key ={i} style={{ color: "gray" }}> розташування  : </span><b>{dat.p06}</b> <br />
 				  <span key ={i} style={{ color: "gray" }}> ФІО : </span><b>{dat.p07}</b> <br />
 				  <span key ={i} style={{ color: "gray" }}> посада : </span><b>{dat.p08}</b> <br /> 
+				  <span key ={i} style={{ color: "gray" }}> нотатки : </span><b>{dat.p09}</b> <br /> 
 				  <div id  = "Edit" style={{ padding: "10px", visibility:"hidden" }}>
 		   <label for="ID">ID</label>
           <input
 		    id = "ID"
             type="text"
             style={{ width: "250px" }}
-			value = {dat._id}
+			value = {dat.id}
 			ref = "myText"
             //onChange={e => this.setState({ idToUpdate: document.getElementById('Text').Value})}
             placeholder="id of item to update here"
@@ -441,7 +445,7 @@ getInfoedr = () => {
 			<input
 			id = "Text5"
             type="text"
-            style={{ width: "180px" }}
+            style={{ width: "150px" }}
             onChange={e => this.setState({ updatePrice: e.target.value })}
             placeholder={dat.p04}
           />&nbsp;
@@ -479,10 +483,18 @@ getInfoedr = () => {
             placeholder={dat.p07}
 			ref= "sdsdsd"
           />
-		  
-		  <p>
+		  &nbsp;
+		  <label for="Text7">NOTES</label>
+			<input
+			id = "Text10"
+            type="text"
+            style={{ width: "180px" }}
+            onChange={e => this.setState({ updateNotes: e.target.value })}
+			placeholder={dat.p09}
+			/>
+		  		  <p>
           <button id = "EditButton"
-            onClick={(e) =>this.updateDB(this.state.idToUpdate,this.state.updateNameToApply,this.state.updateToApply,this.state.updateMatherial,this.state.updateCode,this.state.updateDate,this.state.updatePrice,this.state.updateSerial,this.state.updatePlace,e)}>
+            onClick={(e) =>this.updateDB(this.state.idToUpdate,this.state.updateNameToApply,this.state.updateToApply,this.state.updateMatherial,this.state.updateCode,this.state.updateDate,this.state.updatePrice,this.state.updateSerial,this.state.updatePlace,this.state.updateNotes,e)}>
             РЕДАГУВАТИ ЗАПИС
           </button>
 		  <button id = "DeleteButton"

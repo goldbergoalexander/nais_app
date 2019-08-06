@@ -16,8 +16,17 @@ var cn = {
     password: ''
 };
 
+var dn = {
+  host: '10.2.6.115', // server name or IP address;
+  port: 5432,
+  database: 'nais',
+  user: 'postgres',
+  password: 'post'
+};
  
 var db = pgp(cn); // database instance;
+var db1 = pgp(dn); // database instance;
+
 // select and return user name from id:
 
 if (!db){
@@ -34,6 +43,20 @@ db.one('SELECT * FROM hais where p01 like'+ "'%190454%'")
     });	
 	
 }
+if (!db1){
+  console.log(error);
+  }
+  else{
+  db1.one('SELECT * FROM kartridj_1 where id=1')
+      .then(data => {
+          console.log(data); // print user name;
+      
+      })
+      .catch(error => {
+          console.log(error); // print the error;
+      });	
+    
+  }
 
 
 const API_PORT = 3001;
@@ -102,12 +125,16 @@ router.get("/getvalue/", (req, res) => {
 	//console.log(text);
 	var input1 = searchvalue.charAt(0).toUpperCase() + searchvalue.slice(1),
 	searchval1 = "%"+input1+"%",
-	searchvalue2 = "'"+searchval1+"'",
+  searchvalue2 = "'"+searchval1+"'",
+  serchvalue3 = "%"+searchvalue+"%",
+  serchvalue4 ="'"+serchvalue3+"'",
 	searchval01 = "%"+searchvalue+"%",
 	searchvalue02 = "'"+searchval01+"'",
 	typeinventar1 = "'"+typeinventar+"'";
 
-	console.log("This is typeinventar1" + ' ' + typeinventar1);
+  console.log("This is typeinventar1" + ' ' + typeinventar1);
+  console.log("this is searchvalue" + ' ' + searchvalue );
+  console.log("This is searchvalue2" + ' ' + searchvalue2);
 	
 	let datas = [];
 	// Set if number 0 or more then 1//
@@ -115,14 +142,21 @@ router.get("/getvalue/", (req, res) => {
 	else {var num = number; }
 	// Set if number 0 or more then 1//
 	// Set if typeinventar not selected//
-	if (typeinventar != '0'){
-		console.log ('typeinventar is not 00')
-var query1 = db.any('SELECT * FROM hais where (p01 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p07 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )'  + 'OR (p02 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p03 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p05 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p06 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + ' limit '  + num)
+	if (typeinventar != '0' &&  typeinventar != '065' ){
+    console.log ('typeinventar is not 00' + '\n'+ 'this is type inventar ' + ' ' + typeinventar)
+    
+var query1 = db.any('SELECT * FROM hais where (p06 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 +  ' )' + 'OR (p01 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p07 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )'  + 'OR (p02 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p03 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p05 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p06 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + ' limit '  + num)
+
+}
+else if (typeinventar === '065' ){
+  console.log ('typeinventar is 065' + '\n'+ 'this is type inventar ' + ' ' + typeinventar)
+  
+var query1 = db1.any('SELECT * FROM kartridj_1 where (Name like ' + ' ' +  searchvalue2 + ')' + 'OR (Printer like ' + ' ' +  searchvalue2 + ' )'  + 'OR (Churge like ' + ' ' +  searchvalue2 + ' )' + ' limit '  + num)
 
 }
 else {
 console.log ('typeinventar is 00')
-	var query1 = db.any('SELECT * FROM hais where p07 like ' +searchvalue2  + 'OR p01 like ' +searchvalue2 + 'OR p01 like ' + searchvalue02 + ' OR p02 like ' +searchvalue2 + ' OR  p03 like ' +searchvalue2 + ' OR  p05 like ' +searchvalue2 + ' OR p06 like ' + searchvalue2 + 'limit ' + ' ' +  num)
+	var query1 = db.any('SELECT * FROM hais where p09 like ' +serchvalue4  + ' OR p07 like ' +searchvalue2  + 'OR p01 like ' +searchvalue2 + 'OR p01 like ' + searchvalue02 + ' OR p02 like ' +searchvalue2 + ' OR  p03 like ' +searchvalue2 + ' OR  p05 like ' +searchvalue2 + ' OR p06 like ' + searchvalue2 + 'limit ' + ' ' +  num)
 	}
 		// Set if typeinventar not selected//
 	query1
@@ -142,14 +176,14 @@ console.log ('typeinventar is 00')
 //##################################    Worked Code search from query ############################################################
 
 router.post("/updatevalue/", (req, res) => {
-  const {_id,id,update,name,matherial,code,date,price,serial,place} = req.body;
-  console.log('This is ID ' + id);
-  console.log('This is _ID  ' + _id);
+  const {id,id_1,update,name,matherial,code,date,price,serial,place,notes} = req.body;
+  console.log('This is ID ' + id_1);
+  console.log('This is _ID  ' + id);
   console.log('This is update ' + update.message);
-  var id01 = decoder.write(id),
+  var id01 = decoder.write(id_1),
   id0 = "%"+id01+"%",
-  id1 = "'"+id+"'",
-  id2 = "'"+_id+"'",
+  id1 = "'"+id_1+"'",
+  id2 = "'"+id+"'",
   name1 = "'"+name.message+"'",
   update1 = "'"+update.message+"'",
   matherial1 = "'"+matherial.message+"'",
@@ -157,8 +191,9 @@ router.post("/updatevalue/", (req, res) => {
   date1 = "'"+date.message+"'",
   price1 = "'"+price.message+"'",
   serial1 = "'"+serial.message+"'",
-  place1 = "'"+place.message+"'";
-	db.any('update hais set  p01 = '+ id1 +', p08 = '+ update1 +', p07 = '+ name1 + ', p02 = '+ matherial1 +', p02a = '+ code1 +', p03 = '+ date1 + ', p04 = '+ price1 + ', p05 = '+ serial1 +', p06 = '+ place1 +' where _id =  '+ id2).then(err => {
+  place1 = "'"+place.message+"'",
+  notes1 = "'"+notes.message+"'";
+	db.any('update hais set  p01 = '+ id1 +', p09 = '+ notes1 +', p08 = '+ update1 +', p07 = '+ name1 + ', p02 = '+ matherial1 +', p02a = '+ code1 +', p03 = '+ date1 + ', p04 = '+ price1 + ', p05 = '+ serial1 +', p06 = '+ place1 +' where id =  '+ id2).then(err => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true }), alert ('The data has been updated!!!!');
   });
@@ -195,7 +230,7 @@ router.post("/removevalue/", (req, res) => {
   console.log('This is ID ' + id);
   var id1 = "'"+id +"'";
   
-	db.any('delete from hais where _id = '+ id1 ).then(err => {
+	db.any('delete from hais where id = '+ id1 ).then(err => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
