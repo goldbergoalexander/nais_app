@@ -33,7 +33,10 @@ class Search extends Component {
  //####################################### Hide show forms ###################################
  EditValue(e){
 	  e.preventDefault();
+	  const {results} = this.state;
+	  console.log(`this is  results.length from edit : ${results.length}`)
 	  if (!document.getElementById('Edit')){document.getElementById('ask').innerHTML = "Ви не виконали пошук!!!"}
+	  //else if (results.length>1){document.getElementById('ask').innerHTML = "редагувати можна лише 1 результат"}
 	  else{	  
 	  
 	  document.getElementById('Edit').style.visibility = "";
@@ -153,7 +156,8 @@ getInfoedr = () => {
 		                        searchvalue: objIdToUpdate1 }} 
 	                                    )
 									.then(data=>alert(
-									 'Запис успішно оновлено, Деталі : ' + '\n' +
+									// eslint-disable-next-line
+									'Запис успішно оновлено, Деталі : ' + '\n' +
 									'Інвентарний :' +  data.data.data[0].p01 + '\n'+
 									'ФІП :' +  data.data.data[0].p07 + '\n' +
 									'Найменування :' +  data.data.data[0].p02 + '\n' +
@@ -191,7 +195,7 @@ getInfoedr = () => {
 		                        searchvalue: InsertID }} 
 	                                    )
 									.then(data=>alert(
-									 'Запис успішно записано, Деталі : ' + '\n' +
+									'Запис успішно записано, Деталі : ' + '\n' +
 									'Інвентарний :' +  data.data.data[0].p01 + '\n'+
 									'ФІП :' +  data.data.data[0].p07 + '\n' +
 									'Найменування :' +  data.data.data[0].p02 + '\n' +

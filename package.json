@@ -12,20 +12,28 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-core": "^6.26.3",
-    "babel-jest": "^23.6.0",
+    "babel-jest": "23.6.0",
+    "babel-eslint": "9.0.0",
+    "babel-loader": "8.0.4",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "express": "^4.16.4",
+    "eslint": "5.6.0",
+    "jest": "23.6.0",
     "install": "^0.12.2",
     "mongoose": "^5.4.7",
     "morgan": "^1.9.1",
+    "pg": "^7.8.0",
+    "pg-promise": "^8.5.5",
     "prop-types": "^15.7.1",
     "react": "^16.8.1",
-    "react-confirm-alert": "^2.1.0",
+    "react-confirm-alert": "^2.4.1",
     "react-dom": "^16.8.1",
+    "react-scripts": "^3.3.0",
     "string_decoder": "^1.2.0",
     "uninstall": "0.0.0",
-    "webpack": "^4.29.0"
+    "webpack": "4.19.1",
+    "webpack-dev-server": "3.1.14"
   }
 }

@@ -29,6 +29,7 @@ var db1 = pgp(dn); // database instance;
 
 // select and return user name from id:
 
+/* 
 if (!db){
 console.log(error);
 }
@@ -43,11 +44,12 @@ db.one('SELECT * FROM hais where p01 like'+ "'%190454%'")
     });	
 	
 }
+*/ 
 if (!db1){
   console.log(error);
   }
   else{
-  db1.one('SELECT * FROM kartridj_1 where id=1')
+  db1.one('SELECT * FROM hais where id=1')
       .then(data => {
           console.log(data); // print user name;
       
@@ -130,11 +132,13 @@ router.get("/getvalue/", (req, res) => {
   serchvalue4 ="'"+serchvalue3+"'",
 	searchval01 = "%"+searchvalue+"%",
 	searchvalue02 = "'"+searchval01+"'",
-	typeinventar1 = "'"+typeinventar+"'";
+  typeinventar1 = "'"+typeinventar+"'",
+  searchvalue22 = searchvalue2.toLowerCase();
 
   console.log("This is typeinventar1" + ' ' + typeinventar1);
   console.log("this is searchvalue" + ' ' + searchvalue );
   console.log("This is searchvalue2" + ' ' + searchvalue2);
+  console.log("This is searchvalue22" + ' ' + searchvalue22);
 	
 	let datas = [];
 	// Set if number 0 or more then 1//
@@ -145,7 +149,7 @@ router.get("/getvalue/", (req, res) => {
 	if (typeinventar != '0' &&  typeinventar != '065' ){
     console.log ('typeinventar is not 00' + '\n'+ 'this is type inventar ' + ' ' + typeinventar)
     
-var query1 = db.any('SELECT * FROM hais where (p06 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 +  ' )' + 'OR (p01 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p07 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )'  + 'OR (p02 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p03 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p05 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p06 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + ' limit '  + num)
+var query1 = db1.any('SELECT * FROM hais where (p06 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 +  ' )' + 'OR (p01 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p07 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )'  + 'OR (p02 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p03 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p05 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p06 like ' + ' ' +  searchvalue2 + ' and p02a = ' + typeinventar1 + ' )' + 'OR (p08 like ' + ' ' +  searchvalue22 + ' and p02a = ' + typeinventar1 +  ' )' + ' limit '  + num)
 
 }
 else if (typeinventar === '065' ){
@@ -156,7 +160,7 @@ var query1 = db1.any('SELECT * FROM kartridj_1 where (Name like ' + ' ' +  searc
 }
 else {
 console.log ('typeinventar is 00')
-	var query1 = db.any('SELECT * FROM hais where p09 like ' +serchvalue4  + ' OR p07 like ' +searchvalue2  + 'OR p01 like ' +searchvalue2 + 'OR p01 like ' + searchvalue02 + ' OR p02 like ' +searchvalue2 + ' OR  p03 like ' +searchvalue2 + ' OR  p05 like ' +searchvalue2 + ' OR p06 like ' + searchvalue2 + 'limit ' + ' ' +  num)
+	var query1 = db1.any('SELECT * FROM hais where p09 like ' +serchvalue4  + ' OR p07 like ' +searchvalue2  + 'OR p01 like ' +searchvalue2 + 'OR p01 like ' + searchvalue02 + ' OR p02 like ' +searchvalue2 + ' OR  p03 like ' +searchvalue2 + ' OR  p05 like ' +searchvalue2 + ' OR p06 like ' + searchvalue2 + ' OR p08 like ' + searchvalue22 + ' OR p02 like ' + searchvalue22 + 'limit ' + ' ' +  num)
 	}
 		// Set if typeinventar not selected//
 	query1
