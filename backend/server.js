@@ -24,7 +24,7 @@ var dn = {
   password: 'post'
 };
  
-var db = pgp(cn); // database instance;
+var db = pgp(dn); // database instance;
 var db1 = pgp(dn); // database instance;
 
 // select and return user name from id:

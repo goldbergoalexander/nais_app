@@ -28,6 +28,8 @@ class Search extends Component {
 	
 	
   }
+  
+  
 
   
  //####################################### Hide show forms ###################################
@@ -96,6 +98,8 @@ getInfoedr = () => {
               })
 		})
 	  }
+	  
+
 //#########################################   testing #######################################
  
 	  handleInputChange = (props) => {
@@ -117,10 +121,15 @@ getInfoedr = () => {
     })
   
   }
+  	
   //###############################################################   UPDATE DATA ##################################################################################
     updateDB(idToUpdate,updateNameToApply,updateToApply,updateMatherial,updateCode,updateDate,updatePrice,updateSerial,updatePlace,updateNotes,e){
 		 e.preventDefault();
-		
+
+          
+    
+
+    		
 		       let objIdToUpdate = null;
                this.state.results.map(dat => {
                if (dat.p01 === idToUpdate) {
@@ -425,9 +434,10 @@ getInfoedr = () => {
 			<input
 			id = "Text2"
             type="text"
-            style={{ width: "180px" }}
-            onChange={e => this.setState({ updateMatherial: e.target.value })}
-            placeholder={dat.p02}
+			style={{ width: "180px" }}
+			value={e => this.setState({ updateMatherial: e.target.value })}
+			onChange={e => this.setState({ updateMatherial: e.target.value })}
+			placeholder={dat.p02}
           />&nbsp;
 		  <label for="Text3">Код</label>
 			<input
